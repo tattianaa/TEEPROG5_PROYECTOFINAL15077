@@ -3,20 +3,22 @@ package gui;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class bievenida extends JFrame {
+public class PanelInicio extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JButton btnTienda;
 	private JButton btnAdmin;
-	private JLabel lblNewLabel;
+	private JLabel lblLogo;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					bievenida frame = new bievenida();
+					PanelInicio frame = new PanelInicio();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -25,7 +27,7 @@ public class bievenida extends JFrame {
 		});
 	}
 
-	public bievenida() {
+	public PanelInicio() {
 		setTitle("Proyecto Final - Speakers Moda");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(700, 450);
@@ -49,6 +51,13 @@ public class bievenida extends JFrame {
 		btnTienda.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnTienda.setBounds(100, 200, 210, 90);
 		contentPane.add(btnTienda);
+		
+		
+
+		// Detecta cuando el usuario hace clic en "Explorar tienda"
+		btnTienda.addActionListener(e -> {
+		    System.out.println("Ir a tienda");
+		});
 
 		// Boton Acceso Administrativo
 		btnAdmin = new JButton("<html><center>ACCESO<br>ADMINISTRATIVO</center></html>");
@@ -62,9 +71,16 @@ public class bievenida extends JFrame {
 		btnAdmin.setBounds(380, 200, 210, 90);
 		contentPane.add(btnAdmin);
 		
-		lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\HP\\Desktop\\35oremoe.png"));
-		lblNewLabel.setBounds(171, 92, 348, 66);
-		contentPane.add(lblNewLabel);
+		// Abre la ventana de login cuando el usuario hace clic
+		btnAdmin.addActionListener(e -> {
+		    new Login().setVisible(true); // abre el login
+		    dispose(); // cierra la ventana actual (PanelInicio)
+		});
+		
+		
+		lblLogo = new JLabel();
+		lblLogo.setIcon(new ImageIcon("C:\\Users\\HP\\Desktop\\35oremoe.png"));
+		lblLogo.setBounds(171, 92, 348, 66);
+		contentPane.add(lblLogo);
 	}
 }

@@ -1,10 +1,13 @@
 package gui;
 
+
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import gui.PanelInicio;
+import gui.GestorAdministrativo;
 
-public class login extends JFrame {
+public class Login extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -17,7 +20,7 @@ public class login extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					login frame = new login();
+					Login frame = new Login();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -26,7 +29,7 @@ public class login extends JFrame {
 		});
 	}
 
-	public login() {
+	public Login() {
 		setTitle("Acceso Administrativo");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(700, 500);
@@ -90,6 +93,26 @@ public class login extends JFrame {
 
 		// Boton Iniciar Sesion
 		btnLogin = new JButton("INICIAR SESIÓN");
+		
+		//crea la acción cuando haces clic
+		btnLogin.addActionListener(e -> {
+			// Obtener lo que el usuario escribió en el campo usuario
+		    String usuario = txtUsuario.getText();
+		    // Obtener la contraseña (se convierte de char[] a String)
+		    //java devuelve en caracteres por seguridad- convertir a string
+		    String password = new String(txtPassword.getPassword());
+		    
+		    // Validación simple del login (por ahora sin base de datos)
+		    if (usuario.equals("admin") && password.equals("1234")) {
+		        // Si los datos son correctos, abre el panel administrativo
+		        new GestorAdministrativo().setVisible(true);
+		        // Cierra la ventana de login
+		        dispose();
+		    } else {
+		        // Si los datos son incorrectos, muestra error
+		        JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
+		    }
+		});
 		btnLogin.setFont(new Font("Arial", Font.BOLD, 16));
 		btnLogin.setBackground(new Color(220, 170, 175));
 		btnLogin.setForeground(new Color(50, 50, 50));
@@ -106,6 +129,17 @@ public class login extends JFrame {
 		lblRegresar.setForeground(new Color(100, 100, 100));
 		lblRegresar.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		lblRegresar.setBounds(20, 235, 330, 20);
+		// Hace que el texto parezca link (opcional)
+		lblRegresar.setText("<html><u>Regresar a la Tienda</u></html>");
 		panel.add(lblRegresar);
+		// Permite regresar al panel de inicio cuando se hace clic en el texto
+		lblRegresar.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseClicked(java.awt.event.MouseEvent e) {
+		        // Abre la ventana principal del sistema
+		        new PanelInicio().setVisible(true);
+		        // Cierra la ventana actual (Login)
+		        dispose();
+		    }
+		});
 	}
 }
