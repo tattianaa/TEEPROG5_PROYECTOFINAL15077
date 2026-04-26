@@ -4,20 +4,17 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+import logica.ProveedorLogica;
+import modelo.Proveedor;
 
 // Pantalla para gestionar proveedores
-// ══════════════════════════════════════════════════════
-// COMPAÑERO 3 — LEE ESTO ANTES DE EMPEZAR:
-// Esta pantalla ya está construida visualmente.
-// Tu única tarea es conectarla con ProveedorLogica (que hizo el compañero 1).
-// Sigue los PASOS en orden. No toques nada más.
-// ══════════════════════════════════════════════════════
 public class GestorProveedores extends JPanel {
 
     // Tabla donde se muestran los proveedores registrados
     private DefaultTableModel modeloTabla;
 
-    // PASO 1: Declara aquí el objeto gestor de tipo ProveedorLogica (mira cómo está en GestorAdministrativo)
+    // Objeto de lógica que maneja la lista de proveedores
+    private ProveedorLogica gestor = new ProveedorLogica();
 
     public GestorProveedores() {
         setLayout(null);
@@ -129,27 +126,40 @@ public class GestorProveedores extends JPanel {
         btnCancelar.addActionListener(e -> dlg.dispose());
 
         btnGuardar.addActionListener(e -> {
+            // Leemos lo que el usuario escribió en cada campo y quitamos espacios
             String codigo   = txtCodigo.getText().trim().toUpperCase();
             String nombre   = txtNombre.getText().trim();
             String ruc      = txtRuc.getText().trim();
             String telefono = txtTelefono.getText().trim();
 
-            // Validar que ningún campo esté vacío
+            // Si algún campo está vacío, avisamos y no seguimos
             if (codigo.isEmpty() || nombre.isEmpty() || ruc.isEmpty() || telefono.isEmpty()) {
-                JOptionPane.showMessageDialog(dlg, "Todos los campos son obligatorios. Vuelva a intentarlo");
+                JOptionPane.showMessageDialog(dlg, "Todos los campos son obligatorios.");
                 return;
             }
 
-            // PASO 2: Valida con gestor.validar(nombre, ruc)
-            // — nombre solo debe tener letras
-            // — ruc debe tener exactamente 11 números
-            // Si no retorna "OK" muestra el error con JOptionPane y haz return
+            // Validamos el formato de los datos con la lógica
+            // — código tipo ABC123, nombre solo letras, RUC 11 dígitos, teléfono 9 dígitos
+            String resultado = gestor.validar(codigo, nombre, ruc, telefono);
 
-            // PASO 3: Guarda con gestor.agregarProveedor() pasándole los 4 datos
+            // Si la validación no retornó "OK", mostramos el error y no seguimos
+            if (!resultado.equals("OK")) {
+                JOptionPane.showMessageDialog(dlg, resultado);
+                return;
+            }
 
-            // PASO 4: Borra la línea de abajo y recarga la tabla con gestor.getProveedores()
-            modeloTabla.addRow(new Object[]{codigo, nombre, ruc, telefono});
+            // Guardamos el proveedor en la lista de ProveedorLogica
+            gestor.agregarProveedor(codigo, nombre, ruc, telefono);
 
+            // Limpiamos la tabla para no duplicar filas
+            modeloTabla.setRowCount(0);
+
+            // Recargamos la tabla leyendo la lista actualizada desde la lógica
+            for (Proveedor p : gestor.getProveedores()) {
+                modeloTabla.addRow(new Object[]{p.getCodigo(), p.getNombre(), p.getRuc(), p.getTelefono()});
+            }
+
+            // Avisamos que se guardó correctamente y cerramos el formulario
             JOptionPane.showMessageDialog(dlg, "Proveedor registrado correctamente.");
             dlg.dispose();
         });
