@@ -13,8 +13,13 @@ public class GestorProveedores extends JPanel {
     // Tabla donde se muestran los proveedores registrados
     private DefaultTableModel modeloTabla;
 
+<<<<<<< HEAD
     // Objeto de lógica que maneja la lista de proveedores — recibido desde GestorAdministrativo
     private ProveedorLogica gestor;
+=======
+    // Objeto de lógica que maneja la lista de proveedores
+    private ProveedorLogica gestor = new ProveedorLogica();
+>>>>>>> bb1c1d979ec4fa860ed65bcc4568d4dbef3145f1
 
     public GestorProveedores(ProveedorLogica gestor) {
         this.gestor = gestor;
@@ -150,7 +155,11 @@ public class GestorProveedores extends JPanel {
             }
 
             // Guardamos el proveedor en la lista de ProveedorLogica
+<<<<<<< HEAD
             gestor.agregarProveedor(codigo, nombre, ruc, telefono);
+=======
+            gestor.Gestionproveedor(codigo, nombre, ruc, telefono);
+>>>>>>> bb1c1d979ec4fa860ed65bcc4568d4dbef3145f1
 
             // Limpiamos la tabla para no duplicar filas
             modeloTabla.setRowCount(0);
@@ -160,7 +169,11 @@ public class GestorProveedores extends JPanel {
                 modeloTabla.addRow(new Object[]{p.getCodigo(), p.getNombre(), p.getRuc(), p.getTelefono()});
             }
 
+<<<<<<< HEAD
             // Avisamos que se guardó correctamente
+=======
+            // Avisamos que se guardó correctamente y cerramos el formulario
+>>>>>>> bb1c1d979ec4fa860ed65bcc4568d4dbef3145f1
             JOptionPane.showMessageDialog(dlg, "Proveedor registrado correctamente.");
             dlg.dispose();
         });

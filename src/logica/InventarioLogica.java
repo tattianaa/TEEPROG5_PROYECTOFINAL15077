@@ -49,6 +49,7 @@ public class InventarioLogica {
         return false;
     }
 
+<<<<<<< HEAD
     // Recibe texto y categoría → filtra prendas por nombre/código y categoría
     // Si texto está vacío, no filtra por texto
     // Si categoria es "TODAS", no filtra por categoría
@@ -70,6 +71,8 @@ public class InventarioLogica {
         return filtradas;
     }
 
+=======
+>>>>>>> bb1c1d979ec4fa860ed65bcc4568d4dbef3145f1
     
     // ─────────────────────────────────────────
     // OTROS MÉTODOS
@@ -154,6 +157,7 @@ public class InventarioLogica {
         }
         return true;
     }
+<<<<<<< HEAD
  // Devuelve lista de prendas en formato "CODIGO - Nombre" para mostrar en combo
     public List<String> getPrendasFormato() {
         List<String> lista = new ArrayList<>();
@@ -163,4 +167,6 @@ public class InventarioLogica {
         return lista;
     }
 
+=======
+>>>>>>> bb1c1d979ec4fa860ed65bcc4568d4dbef3145f1
 }
