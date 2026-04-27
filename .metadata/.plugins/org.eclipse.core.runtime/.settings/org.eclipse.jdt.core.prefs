@@ -1,4 +1,8 @@
 eclipse.preferences.version=1
+<<<<<<< HEAD
+org.eclipse.jdt.core.codeComplete.visibilityCheck=enabled
+=======
+>>>>>>> 959619b29d158756f9341495ed0b02fea47ab88e
 org.eclipse.jdt.core.compiler.codegen.targetPlatform=21
 org.eclipse.jdt.core.compiler.compliance=21
 org.eclipse.jdt.core.compiler.release=enabled
